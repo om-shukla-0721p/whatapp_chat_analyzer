@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Private WhatsApp exports
+*.txt
+
+# Environment variables
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+
+# personal files
+/testing_place
+
