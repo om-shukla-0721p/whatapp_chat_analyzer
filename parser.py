@@ -25,7 +25,7 @@ def read_chat(file_path):
 
 
 def parse_chat(messages):
-    pattern = r'^(\d{1,2}/\d{1,2}/\d{2}), (\d{1,2}:\d{2}(?::\d{2})?)\s*([APap][Mm]) - (.*)$'
+    pattern = r'^(\d{1,2}/\d{1,2}/\d{2}), (\d{1,2}:\d{2}(?::\d{2})?)(?:\s*([APap][Mm]))? - (.*)$'
     parsed_chat=[] # this stores the parsed chat
     unparsed_chat=[] # the chat which cant be parsed 
     current_message=None # the current message we will store
@@ -36,6 +36,8 @@ def parse_chat(messages):
             if current_message is not None:
                 parsed_chat.append(current_message)
             date,time,period,content=match.groups()
+            if period is None:
+                period=""
             
             current_message={
                 "date":date,

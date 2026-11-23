@@ -9,11 +9,26 @@ from nltk.corpus import stopwords
 from collections import Counter
 
 def create_useful_columns(df):
-    df["date"]=pd.to_datetime(df["date"], format="%d/%m/%y")
-    df["time"] = pd.to_datetime(
-                            df["time"] + " " + df["period"],
-                            format="%I:%M %p"
-                        ).dt.time
+    df["date"]=pd.to_datetime(df["date"], 
+                              format="%d/%m/%y",
+                              errors="coerce")
+    
+    if (df["period"]=="").all():
+        df["time"]=pd.to_datetime(
+                       df["time"],
+                       format="%H:%M",
+                       errors="coerce"
+                                ).dt.time
+    else: 
+        df["time"] = pd.to_datetime(
+                        df["time"] + " " + df["period"],
+                        format="%I:%M %p",
+                        errors="coerce"
+                                ).dt.time
+
+
+
+
     df["hour"]=df["time"].apply(lambda x:x.hour)
     df["day"]=df["date"].dt.day
     df["month_name"]=df["date"].dt.month_name()
@@ -237,7 +252,8 @@ def fetch_word_freq(df):
     "vo", "woh", "abe", "ok",
     "sab", "theek", "lia", "liya",
     "hua", "mat", "krna", "dunga", "dia",
-    "aa", "bas", "maine", "baat", "mere"
+    "aa", "bas", "maine", "baat", "mere","omitted","edited","message","deleted","mt","ne",
+    "fir","koi","media"
     ])
 
     words=[word for word in words if word not in stop_words]

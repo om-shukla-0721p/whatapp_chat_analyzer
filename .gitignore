@@ -23,4 +23,6 @@ Thumbs.db
 
 # personal files
 /testing_place
+test_parser.py
 
+/.vscode
