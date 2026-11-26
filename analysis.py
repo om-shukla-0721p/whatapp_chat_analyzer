@@ -5,7 +5,14 @@
 import pandas as pd
 import re
 import emoji
+import nltk
+
+try :
+    nltk.data.find("corpora/stopwords")
+except LookupError:
+    nltk.download("stopwords",quiet=True)
 from nltk.corpus import stopwords
+
 from collections import Counter
 
 def create_useful_columns(df):
