@@ -16,20 +16,23 @@ from nltk.corpus import stopwords
 from collections import Counter
 
 def create_useful_columns(df):
-    df["date"]=pd.to_datetime(df["date"], 
-                              format="%d/%m/%y",
-                              errors="coerce")
-    
+    # df["date"]=pd.to_datetime(df["date"], 
+    #                           format="%d/%m/%y",
+    #                           errors="coerce")
+    # normalizing date
+    df["date"]=pd.to_datetime(df["date"],format="mixed",dayfirst=True,errors="coerce")
+
+    # normalizing time 
     if (df["period"]=="").all():
         df["time"]=pd.to_datetime(
                        df["time"],
-                       format="%H:%M",
-                       errors="coerce"
+                       format="mixed",
+                       errors= "coerce"
                                 ).dt.time
     else: 
         df["time"] = pd.to_datetime(
                         df["time"] + " " + df["period"],
-                        format="%I:%M %p",
+                        format="mixed",
                         errors="coerce"
                                 ).dt.time
 

@@ -31,22 +31,26 @@ def apply_chart_theme(fig, ax, grid=True):
         )
 
 # def plot_daily_timeline(daily_df):
-#     fig,ax=plt.subplots(figsize=(12,5))
+    # fig,ax=plt.subplots(figsize=(12,5))
 
-#     sns.lineplot(
-#         data=daily_df,
-#         x=daily_df.index,
-#         y="total_messages",
-#         ax=ax
-#     )
+    # sns.lineplot(
+    #     data=daily_df,
+    #     x=daily_df.index,
+    #     y="total_messages",
+    #     ax=ax
+    # )
 
-#     ax.set_title("Daily Message Timeline",fontsize=20,color="red")
-#     ax.set_xlabel("Date",fontsize=23,color="blue")
-#     ax.set_ylabel("Number of Messages",fontsize=25)
-#     plt.xticks(rotation=90)
-#     fig.tight_layout()
+    # ax.set_title("Daily Message Timeline",fontsize=20,color="red")
+    # ax.set_xlabel("Date",fontsize=23,color="blue")
+    # ax.set_ylabel("Number of Messages",fontsize=25)
+    # plt.xticks(rotation=90)
+    # fig.tight_layout()
 
-#     return fig
+    # return fig
+
+
+
+
 def plot_daily_timeline(daily_df):
     fig, ax = plt.subplots(figsize=(12, 5))
 

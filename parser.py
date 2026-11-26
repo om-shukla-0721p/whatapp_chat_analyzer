@@ -25,13 +25,15 @@ def read_chat(file_path):
 
 
 def parse_chat(messages):
-    pattern = r'^(\d{1,2}/\d{1,2}/\d{2}), (\d{1,2}:\d{2}(?::\d{2})?)(?:\s*([APap][Mm]))? - (.*)$'
+    # pattern = r'^(\d{1,2}/\d{1,2}/\d{2}), (\d{1,2}:\d{2}(?::\d{2})?)(?:\s*([APap][Mm]))? - (.*)$'
+    mobile_pattern = r'^(\d{1,2}/\d{1,2}/\d{2,4}), (\d{1,2}:\d{2}(?::\d{2})?)(?:\s*([APap][Mm]))? - (.*)$'
+    # pc_pattern = r'^\[(\d{1,2}/\d{1,2}/\d{2}), (\d{1,2}:\d{2}:\d{2})\s*([APap][Mm])\] (.*)$'
     parsed_chat=[] # this stores the parsed chat
     unparsed_chat=[] # the chat which cant be parsed 
     current_message=None # the current message we will store
 
     for line in messages.splitlines():
-        match=re.match(pattern,line)
+        match=re.match(mobile_pattern,line)
         if match:
             if current_message is not None:
                 parsed_chat.append(current_message)
