@@ -1,7 +1,7 @@
 import streamlit as st
 from analysis import *
 from visualization import * 
-
+import matplotlib.pyplot as plt
 
 
 # def overall_analysis(df): self
@@ -111,10 +111,12 @@ def overall_analysis(df): # used char gpt for btter visuals
     daily_df = fetch_daily_timeline(df)
     fig = plot_daily_timeline(daily_df)
     st.pyplot(fig)
+    plt.close(fig)
 
     monthly_df = fetch_monthly_timeline(df)
     fig = plot_monthly_timeline(monthly_df)
     st.pyplot(fig)
+    plt.close(fig)
 
     st.divider()
 
@@ -128,17 +130,20 @@ def overall_analysis(df): # used char gpt for btter visuals
         weekday_df = fetch_weekday_stats(df)
         fig = plot_weekday_stats(weekday_df)
         st.pyplot(fig)
+        plt.close(fig)
 
     with col2:
         hourly_df = fetch_hourly_timeline(df)
         fig = plot_hourly_activities(hourly_df)
         st.pyplot(fig)
+        plt.close(fig)
 
     st.caption("The heatmap combines weekdays and hours to reveal activity patterns.")
 
     heatmap_df = fetch_activity_heatmap(df)
     fig = plot_activity_heatmap(heatmap_df)
     st.pyplot(fig)
+    plt.close(fig)
 
     st.divider()
 
@@ -149,10 +154,12 @@ def overall_analysis(df): # used char gpt for btter visuals
     sender_activity = fetch_sender_activity(df)
     fig = plot_sender_activity(sender_activity)
     st.pyplot(fig)
+    plt.close(fig)
 
     weekday_activity = fetch_activity_by_weekday(df)
     fig = plot_sender_weekday_activity(weekday_activity)
     st.pyplot(fig)
+    plt.close(fig)
 
     st.divider()
 
@@ -166,11 +173,13 @@ def overall_analysis(df): # used char gpt for btter visuals
         type_df = fetch_type_stats(df)
         fig = plot_type_stats(type_df)
         st.pyplot(fig)
+        plt.close(fig)
 
     with col2:
         subtype_df = fetch_subtypes_stats(df)
         fig = plot_subtypes_stat(subtype_df)
         st.pyplot(fig)
+        plt.close(fig)
 
     st.divider()
 
@@ -185,9 +194,11 @@ def overall_analysis(df): # used char gpt for btter visuals
 
         fig = plot_word_frequency(word_freq)
         st.pyplot(fig)
+        plt.close(fig)
 
         fig = plot_wordcloud(word_freq)
         st.pyplot(fig)
+        plt.close(fig)
 
     emoji_freq = fetch_emoji_stats(df)
 
@@ -201,6 +212,7 @@ def overall_analysis(df): # used char gpt for btter visuals
         with col1:
             fig = plot_emoji_stats(emoji_freq)
             st.pyplot(fig)
+            plt.close(fig)
 
         with col2:
             emoji_df = plot_emoji_stats_df(emoji_freq)
@@ -323,11 +335,13 @@ def individual_analysis(df):
     daily_df = fetch_daily_timeline(user_df)
     fig = plot_daily_timeline(daily_df)
     st.pyplot(fig)
+    plt.close(fig)
 
     # Monthly Activity
     monthly_df = fetch_monthly_timeline(user_df)
     fig = plot_monthly_timeline(monthly_df)
     st.pyplot(fig)
+    plt.close(fig)
 
     # Weekday and Hourly Activity
     col1, col2 = st.columns(2)
@@ -336,11 +350,13 @@ def individual_analysis(df):
         weekday_df = fetch_weekday_stats(user_df)
         fig = plot_weekday_stats(weekday_df)
         st.pyplot(fig)
+        plt.close(fig)
 
     with col2:
         hourly_df = fetch_hourly_timeline(user_df)
         fig = plot_hourly_activities(hourly_df)
         st.pyplot(fig)
+        plt.close(fig)
 
     # Activity Heatmap
     st.caption("Explore the relationship between weekdays and messaging hours.")
@@ -348,6 +364,7 @@ def individual_analysis(df):
     heatmap_df = fetch_activity_heatmap(user_df)
     fig = plot_activity_heatmap(heatmap_df)
     st.pyplot(fig)
+    plt.close(fig)
 
     st.divider()
 
@@ -363,11 +380,13 @@ def individual_analysis(df):
         st.markdown("**Frequently Used Words**")
         fig = plot_word_frequency(word_freq)
         st.pyplot(fig)
+        plt.close(fig)
 
         # Word Cloud
         st.markdown("**Word Cloud**")
         fig = plot_wordcloud(word_freq)
         st.pyplot(fig)
+        plt.close(fig)
 
     st.divider()
 
@@ -383,6 +402,7 @@ def individual_analysis(df):
         with col1:
             fig = plot_emoji_stats(emoji_freq)
             st.pyplot(fig)
+            plt.close(fig)
 
         with col2:
             emoji_df = plot_emoji_stats_df(emoji_freq)
@@ -494,6 +514,7 @@ def participant_comparison(df):
             "Messages"
         )
         st.pyplot(fig)
+        plt.close(fig)
 
     with col2:
         fig = plot_participant_comparision(
@@ -503,6 +524,7 @@ def participant_comparison(df):
             "Words"
         )
         st.pyplot(fig)
+        plt.close(fig)
 
     st.divider()
 
@@ -518,3 +540,4 @@ def participant_comparison(df):
     )
 
     st.pyplot(fig)
+    plt.close(fig)

@@ -1,15 +1,16 @@
 import streamlit as st
 from parser import parse_chat,create_df # read_chat
 from preprocessing import preprocess_messages
-from analysis import *
-from visualization import *
+from analysis import create_useful_columns
 from dashboards import (overall_analysis,
                         individual_analysis,
                         participant_comparison)
 
+
 @st.cache_data(show_spinner="Processing chat...")
 def load_chat_data(raw_data):
     parsed_chat, unparsed_chat = parse_chat(raw_data)
+    # print(">>> CHAT PROCESSING EXECUTED<<<")
 
     if len(parsed_chat) == 0:
         return None, len(unparsed_chat)
@@ -65,12 +66,26 @@ def main():
                 color: #45C4B0;
             }
 
-            /* Buttons */
-            .stButton > button {
-                background-color: #237F78;
-                color: white;
+            /* Navigation buttons */
+            .stButton > button[kind="primary"] {
+                background-color: #45C4B0;
+                color: #101820;
+                border: 1px solid #45C4B0;
                 border-radius: 8px;
-                border: none;
+                font-weight: 600;
+            }
+
+            .stButton > button[kind="secondary"] {
+                background-color: transparent;
+                color: #AAB8C5;
+                border: 1px solid #304452;
+                border-radius: 8px;
+            }
+
+            /* Hover effect */
+            .stButton > button:hover {
+                border-color: #45C4B0;
+                color: #45C4B0;
             }
 
             /* Dividers */
@@ -113,15 +128,33 @@ def main():
                 st.warning(f"{unparsed_count} messages could not be parsed.")
 
             with st.sidebar:
-                st.title("Navigation")
-                section = st.radio(
-                    "Go to",
-                    [
-                        "Overall Analysis",
-                        "Individual Analysis",
-                        "Participant Comparison"
-                    ]
-                )
+                st.title("💬 Chat Analyzer")
+                st.caption("Explore your conversations")
+
+                st.divider()
+                st.subheader("Navigation")
+
+                if "section" not in st.session_state:
+                    st.session_state.section = "Overall Analysis"
+
+                if st.button("📊 Overall Analysis", use_container_width=True,
+                             type="primary" if st.session_state.section=="Overall Analysis" else "secondary"):
+                    st.session_state.section = "Overall Analysis"
+
+                if st.button("👤 Individual Analysis", use_container_width=True,
+                             type="primary" if st.session_state.section=="Individual Analysis" else "secondary"):
+                    st.session_state.section = "Individual Analysis"
+
+                if st.button("⚖️ Participant Comparison", use_container_width=True,
+                             type="primary" if st.session_state.section=="Participant Comparison" else "secondary"):
+                    st.session_state.section = "Participant Comparison"
+
+                section = st.session_state.section
+
+                st.divider()
+                st.caption("CHAT INFORMATION")
+                st.metric("Participants", df["sender"].nunique())
+                st.metric("Total Messages", len(df))
 
             if section == "Overall Analysis":
                 overall_analysis(df)
